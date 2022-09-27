@@ -3,3 +3,4 @@
   2. [Dependency Inversion](https://github.com/patzgn/java-start-spring/tree/main/dependency-inversion)
   3. [Inversion of Control](https://github.com/patzgn/java-start-spring/tree/main/inversion-of-control)
   4. [Profiles](https://github.com/patzgn/java-start-spring/tree/main/profiles)
+  5. [Configuration Class](https://github.com/patzgn/java-start-spring/tree/main/configuration-class)
