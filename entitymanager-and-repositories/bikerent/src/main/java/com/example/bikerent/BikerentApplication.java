@@ -1,4 +1,4 @@
-package com.example.definingentities;
+package com.example.bikerent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.example.definingentities;
+package com.example.bikerent;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
