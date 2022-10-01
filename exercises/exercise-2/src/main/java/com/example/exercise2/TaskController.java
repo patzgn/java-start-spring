@@ -1,15 +1,23 @@
 package com.example.exercise2;
 
+import com.example.exercise2.dto.NewTaskDto;
+import com.example.exercise2.dto.TaskDurationDto;
+import com.example.exercise2.exception.TaskAlreadyCompletedException;
+import com.example.exercise2.exception.TaskAlreadyStartedException;
+import com.example.exercise2.exception.TaskNotFoundException;
+import com.example.exercise2.exception.TaskNotStartedException;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 @Controller
 class TaskController {
-    private final TaskRepository taskRepository = new SimpleTaskRepository();
+    private final TaskService taskService;
     private final Scanner scanner;
 
-    public TaskController(Scanner scanner) {
+    public TaskController(TaskService taskService, Scanner scanner) {
+        this.taskService = taskService;
         this.scanner = scanner;
     }
 
@@ -36,16 +44,18 @@ class TaskController {
     }
 
     private void evaluateOption(Option option) {
-        switch (option) {
-            case ADD -> {
-                addTask();
+        try {
+            switch (option) {
+                case ADD -> addTask();
+                case PRINT_SINGLE -> printTask();
+                case PRINT_UNSTARTED -> printUnstartedTasks();
+                case PRINT_COMPLETED -> printCompletedTasks();
+                case START_TASK -> startTask();
+                case COMPLETE_TASK -> completeTask();
+                case EXIT -> exit();
             }
-            case PRINT_SINGLE -> {
-                printTask();
-            }
-            case EXIT -> {
-                exit();
-            }
+        } catch (TaskNotFoundException e) {
+            System.out.println("Brak zadania ze wskazanym identyfikatorem");
         }
     }
 
@@ -57,20 +67,56 @@ class TaskController {
         System.out.println("Priorytet (wyższa liczba = wyższy priorytet):");
         int priority = scanner.nextInt();
         scanner.nextLine();
-        Task task = new Task(title, description, priority);
-        Task savedTask = taskRepository.save(task);
-        System.out.println("Zadanie zapisane z identyfikatorem " + savedTask.getId());
+        NewTaskDto task = new NewTaskDto(title, description, priority);
+        Long savedTaskId = taskService.saveTask(task);
+        System.out.println("Zadanie zapisane z identyfikatorem " + savedTaskId);
     }
 
     private void printTask() {
         System.out.println("Podaj identyfikator zadania:");
         long taskId = scanner.nextLong();
         scanner.nextLine();
-        taskRepository.findById(taskId)
+        taskService.getTaskInfo(taskId)
                 .ifPresentOrElse(
                         System.out::println,
                         () -> System.out.println("Brak wpisu o takim id")
                 );
+    }
+
+    private void printUnstartedTasks() {
+        taskService.getAllNotStartedTasksInfo()
+                .forEach(System.out::println);
+    }
+
+    private void printCompletedTasks() {
+        taskService.getAllCompletedTasksInfo()
+                .forEach(System.out::println);
+    }
+
+    private void startTask() {
+        System.out.println("Podaj id zadania, które chcesz wystartować:");
+        long taskId = scanner.nextLong();
+        scanner.nextLine();
+        try {
+            LocalDateTime taskStartTime = taskService.startTask(taskId);
+            System.out.println("Czas rozpoczęcia zadania: " + taskStartTime);
+        } catch (TaskAlreadyStartedException e) {
+            System.out.println("Zadanie zostało już wcześniej wystartowane");
+        }
+    }
+
+    private void completeTask() {
+        System.out.println("Podaj id zadania, które chcesz zakończyć:");
+        long taskId = scanner.nextLong();
+        scanner.nextLine();
+        try {
+            TaskDurationDto taskDuration = taskService.completeTask(taskId);
+            System.out.println(taskDuration);
+        } catch (TaskAlreadyCompletedException e) {
+            System.out.println("Zadanie zostało już wcześniej zakończone");
+        } catch (TaskNotStartedException e) {
+            System.out.println("Wystartuj zadanie zanim je zakończysz");
+        }
     }
 
     private void exit() {
@@ -80,7 +126,11 @@ class TaskController {
     private enum Option {
         ADD(1, "Dodaj nowe zadanie"),
         PRINT_SINGLE(2, "Wyświetl zadanie"),
-        EXIT(3, "Koniec programu");
+        PRINT_UNSTARTED(3, "Wyświetl nierozpoczęte zadania"),
+        PRINT_COMPLETED(4, "Wyświetl zakończone zadania"),
+        START_TASK(5, "Wystartuj zadanie"),
+        COMPLETE_TASK(6, "Zakończ zadanie"),
+        EXIT(7, "Koniec programu");
 
         private final int number;
         private final String name;
