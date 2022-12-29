@@ -59,4 +59,10 @@ class JobOfferController {
         JsonNode jobOfferPatchedNode = patch.apply(jobOfferNode);
         return objectMapper.treeToValue(jobOfferPatchedNode, JobOfferDto.class);
     }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteJobOffer(@PathVariable Long id) {
+        jobOfferService.deleteOffer(id);
+        return ResponseEntity.noContent().build();
+    }
 }
