@@ -27,7 +27,7 @@ public class GenreController {
     public String getGenre(@PathVariable String name, Model model) {
         GenreDto genre = genreService.findGenreByName(name)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        List<MovieDto> movies = movieService.findAllByGenreName(name);
+        List<MovieDto> movies = movieService.findMoviesByGenreName(name);
         model.addAttribute("heading", genre.getName());
         model.addAttribute("description", genre.getDescription());
         model.addAttribute("movies", movies);

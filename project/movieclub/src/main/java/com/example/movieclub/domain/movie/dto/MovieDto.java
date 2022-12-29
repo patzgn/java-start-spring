@@ -10,8 +10,17 @@ public class MovieDto {
     private Integer releaseYear;
     private String genre;
     private boolean promoted;
+    private String poster;
 
-    public MovieDto(Long id, String title, String originalTitle, String shortDescription, String description, String youtubeTrailerId, Integer releaseYear, String genre, boolean promoted) {
+    public MovieDto(Long id,
+                    String title,
+                    String originalTitle,
+                    String shortDescription,
+                    String description,
+                    String youtubeTrailerId,
+                    Integer releaseYear,
+                    String genre,
+                    boolean promoted, String poster) {
         this.id = id;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -21,6 +30,7 @@ public class MovieDto {
         this.releaseYear = releaseYear;
         this.genre = genre;
         this.promoted = promoted;
+        this.poster = poster;
     }
 
     public Long getId() {
@@ -93,5 +103,13 @@ public class MovieDto {
 
     public void setPromoted(boolean promoted) {
         this.promoted = promoted;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }
