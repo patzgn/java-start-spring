@@ -368,3 +368,14 @@ textarea {
 }
 
 /*error pages END*/
+
+/*Tekst nad formularzem*/
+.mc-form-message {
+    color: #ffc107;
+    text-align: center;
+}
+
+.registration-link {
+    text-align: center;
+    margin-top: 32px;
+}
