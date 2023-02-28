@@ -1,11 +1,13 @@
 # JavaStart Spring Course
 
-This repository contains examples and excercises form a JavaStart Spring course.
+This repository contains examples, excercises and one bigger project form a JavaStart Spring course.
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
 - [Examples](#examples)
+- [Exercises](#exercises)
+- [Project](#project)
 
 ## Getting Started
 
@@ -104,7 +106,10 @@ The examples included in this repository are:
 - [CSRF](https://github.com/patzgn/java-start-spring/tree/main/07-spring-security/09-csrf)
 - [H2 Console](https://github.com/patzgn/java-start-spring/tree/main/07-spring-security/10-h2-console)
 
-### Excercises
+## Exercises
 
-### Project
+This repository contains few additional excercises that cover topics mention above.
+
+## Project
+
 The Movie Club Spring Boot project is a web-based application that allows users search for movies and rate them. The application uses Spring Boot and Thymeleaf to provide a seamless and intuitive user experience. It also incorporates features such as user authentication, authorization, and database persistence to ensure data security and privacy.
