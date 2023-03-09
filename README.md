@@ -110,6 +110,10 @@ The examples included in this repository are:
 
 This repository contains few additional excercises that cover topics mention above.
 
-## Project
+## Project - Movie Club
 
 The Movie Club Spring Boot project is a web-based application that allows users search for movies and rate them. The application uses Spring Boot and Thymeleaf to provide a seamless and intuitive user experience. It also incorporates features such as user authentication, authorization, and database persistence to ensure data security and privacy.
+<p>
+<img src="https://user-images.githubusercontent.com/103074854/223948673-dc4fca3e-2a0e-47f4-92c2-5b73ba70e2d8.png" height="620" />
+<img src="https://user-images.githubusercontent.com/103074854/223948696-9b8a7d55-d47c-4f99-a989-a1151f1288c8.png" height="620" />
+</p>
